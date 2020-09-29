@@ -1,5 +1,7 @@
 package com.epam.mail.iservice;
 
 public interface LoginIService {
-    String loginGmail();
+    void openGmailURL();
+    void inputGmailUserAndPassword();
+    boolean isLoggedIn();
 }

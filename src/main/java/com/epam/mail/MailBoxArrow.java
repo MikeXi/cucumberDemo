@@ -64,39 +64,38 @@ public class MailBoxArrow extends BasePage {
         return accountInfo[1].trim();
     }
 
-    public boolean addDraftEmail(String emailSubject,String to, String body) {
-        int draftCountBefore = getDraftMailCount();
-        logger.info("\nbefore add: "+draftCountBefore);
+    public void clickAddEmailButton(){
         addEmailButton.click();
-        MessageDialogPage messageDialogPage = new MessageDialogPage(driver);
-        messageDialogPage.setMailContents(to,emailSubject,body);
-        messageDialogPage.closeMessageDialog();
-        sleepSeconds(2);
-        int draftCountAfter = getDraftMailCount();
+    }
+
+    public void openDraftEmail(String emailSubject) {
         clickFirstEmailSubject(draftEmailMenu,emailSubject);
-        logger.info("\nafter add: "+draftCountAfter);
-        return draftCountAfter == draftCountBefore + 1;
     }
 
     public WebElement getSentEmail(String emailSubject){
         return getEmailWithSubject(sentEmailMenu,emailSubject);
     }
 
-    public WebElement searchEmail(String emailSubject){
+    public void searchEmail(String emailSubject){
         searchInput.sendKeys(emailSubject);
         sendKey(Keys.ENTER);
         sleepSeconds(2);
+    }
+
+    public WebElement getSearchResult(String emailSubject){
         return getEmailWithSubject(sentEmailMenu,emailSubject);
     }
 
-    public WebElement dragSentMailToStarred(String emailSubject){
+    public void dragSentMailToStarred(String emailSubject){
         WebElement sentEmail = getEmailWithSubject(sentEmailMenu, emailSubject);
         highlightElementByJS(starredEmailMenu);
         dragAndDrop(sentEmail,starredEmailMenu);
-        return getEmailWithSubject(sentEmailMenu,emailSubject);
     }
 
-    public WebElement deleteEmail(String emailSubject){
+    public WebElement getStarredEmail(String emailSubject){
+        return getEmailWithSubject(starredEmailMenu,emailSubject);
+    }
+    public void deleteEmail(String emailSubject){
         WebElement email = getEmailWithSubject(starredEmailMenu, emailSubject);
         highlightElementByJS(email);
         contextClick(email);
@@ -105,7 +104,6 @@ public class MailBoxArrow extends BasePage {
         }
         sendKey(Keys.ENTER);
         sleepSeconds(2);
-        return getEmailWithSubject(starredEmailMenu, emailSubject);
     }
 
     public void tabClick(WebElement menu){
@@ -161,4 +159,10 @@ public class MailBoxArrow extends BasePage {
         clickElementByJS(subjectCell);
     }
 
+    public void clickSentTab(){
+        tabClick(sentEmailMenu);
+    }
+    public void clickStarredTab(){
+        tabClick(starredEmailMenu);
+    }
 }

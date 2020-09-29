@@ -43,6 +43,7 @@ public class MessageDialogArrow extends BasePage {
     @FindBy(css = "div[data-tooltip^='Send']")
     private Button sendButton;
 
+
     public MessageDialogArrow(WebDriver driver) {
         super(driver);
     }

@@ -1,8 +1,10 @@
-package com.epam.mail;
+package com.epam.testrunners;
 
 import com.epam.driver.DriverSingleton;
 import com.epam.service.TestDataReader;
-import org.openqa.selenium.WebDriver;
+import cucumber.junit.Cucumber;
+import io.cucumber.testng.CucumberOptions;
+import org.junit.runner.RunWith;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -10,10 +12,14 @@ import org.testng.annotations.Parameters;
 import java.io.IOException;
 import java.util.Random;
 
-public class BasicTest {
-
-    public static WebDriver driver;
-    public static String emailSubject;
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        features = {"src/test/java/com/epam/features"},
+        glue = {"com/epam/steps"},
+        tags = "@Smoke",
+        plugin = {"pretty","html:target/TestReports/html/report.html","json:target/TestReports/json/report.json","junit:target/TestReports/junit/report.xml"},
+        monochrome = true)
+public class GmailSmokeTestRunner extends GmailTestRunner {
 
     @BeforeSuite
     @Parameters({"env", "browser"})
@@ -23,7 +29,7 @@ public class BasicTest {
         driverSingleton.setBrowser(browser);
         driver = driverSingleton.getDriver();
         Random r = new Random();
-        emailSubject = "Automation test email Subject" + r.nextInt(1000);
+        randomInt = r.nextInt();
     }
 
     @AfterSuite

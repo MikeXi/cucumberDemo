@@ -11,7 +11,7 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 public class MailBoxPage extends MailBoxArrow{
     private final Logger logger = LogManager.getRootLogger();
 
-    private static final String TO = "mike_xi@epam.model";
+    private static final String TO = "mike_xi@epam.com";
     private static final String BODY = "Automation test email Body";
 
     public MailBoxPage(WebDriver driver){
@@ -19,29 +19,30 @@ public class MailBoxPage extends MailBoxArrow{
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
+    public void openDraftEmail(String emailSubject){
+        super.openDraftEmail(emailSubject);
+    }
+
     public String getAccountEmail(){
         return super.getAccountEmail();
     }
 
 
-    public boolean addDraftEmail(String emailSubject){
-        return super.addDraftEmail(emailSubject, TO, BODY);
-    }
 
     public WebElement getSentEmail(String emailSubject){
         return super.getSentEmail(emailSubject);
     }
 
-    public WebElement searchEmail(String emailSubject){
-        return super.searchEmail(emailSubject);
+    public void searchEmail(String emailSubject){
+        super.searchEmail(emailSubject);
     }
 
-    public WebElement dragSentMailToStarred(String emailSubject){
-        return super.dragSentMailToStarred(emailSubject);
+    public void dragSentMailToStarred(String emailSubject){
+        super.dragSentMailToStarred(emailSubject);
     }
 
-    public WebElement deleteEmail(String emailSubject){
-        return super.deleteEmail(emailSubject);
+    public void deleteEmail(String emailSubject){
+        super.deleteEmail(emailSubject);
     }
 
 }

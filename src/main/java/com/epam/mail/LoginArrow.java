@@ -42,9 +42,12 @@ public class LoginArrow extends BasePage implements LoginIService {
     }
 
     @Override
-    public String loginGmail(){
-        MailBoxPage mailBoxPage = new MailBoxPage(driver);
+    public void openGmailURL(){
         driver.get(URL);
+    }
+
+    @Override
+    public void inputGmailUserAndPassword(){
         emailInput.sendKeys(user.getUsername());
         nextButton.click();
         objectIsDisplayed(passwordInput);
@@ -54,7 +57,13 @@ public class LoginArrow extends BasePage implements LoginIService {
         }catch (StaleElementReferenceException e){
             nextButton.click();
         }
-        return mailBoxPage.getAccountEmail();
+    }
+
+    @Override
+    public boolean isLoggedIn(){
+        MailBoxPage mailBoxPage = new MailBoxPage(driver);
+        String accountStr = mailBoxPage.getAccountEmail();
+        return accountStr.contains(user.getUsername());
     }
 
 }
